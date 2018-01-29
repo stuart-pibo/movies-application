@@ -4,13 +4,24 @@
     <meta charset="UTF-8" />
     <title>My Application</title>
     <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
 </head>
 <body>
 
-    <div class="container">
-        <h1>Hello There!</h1>
-        <p>To get started, edit <code>src/index.js</code>.</p>
+  <div class="container">
+    <h1 class="text-center">Bootstrap 4!</h1>
+    <div class="row my-5">
+      <div class="col-sm-6 offset-sm-3">
+        <button type="button"
+                class="btn btn-lg btn-primary btn-block"
+                data-toggle="popover"
+                title="Popover title"
+                data-content="And here's some amazing content. It's very engaging. Right?">
+          Here's a Bootstrap Popover
+        </button>
+      </div>
     </div>
+  </div>
 
     <script src="/main.js"></script>
 </body>
