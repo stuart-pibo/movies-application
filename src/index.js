@@ -11,22 +11,29 @@ const $ = require('jquery');
  */
 const {getMovies} = require('./api.js');
 
-getMovies().then((movies) => {
-  console.log('Here are all the movies:');
+const update = () => {
+    getMovies().then((movies) => {
+        console.log('Here are all the movies:');
 
-  let buildMoviesHTML = `<ul>`;
-  movies.forEach(({title, rating, id}) => {
-    console.log(`${title} - rating: ${rating}`);
-    buildMoviesHTML += `<li class="eachMovie">${title} - rating: ${rating} <button class="deleteMovie"> X</button></li>`;
-  });
-  buildMoviesHTML += `</ul>`;
 
-  $('.moviesList').append(buildMoviesHTML + addMovieHtml());
-    deleteMovie()
-}).catch((error) => {
-  alert('Oh no! Something went wrong.\nCheck the console for details.');
-  console.log(error);
-});
+        let buildMoviesHTML = `<ul id="movieList">`;
+        movies.forEach(({title, rating, id}) => {
+            console.log(`${title} - rating: ${rating}`);
+            buildMoviesHTML += `<li class="eachMovie">${title} - rating: ${rating} <button class="deleteMovie"> X</button></li>`;
+        });
+        buildMoviesHTML += `</ul>`;
+
+        $('.moviesList').append(buildMoviesHTML + addMovieHtml());
+
+        deleteMovie();
+        addMovie();
+
+    }).catch((error) => {
+        alert('Oh no! Something went wrong.\nCheck the console for details.');
+        console.log(error);
+    })
+};
+update();
 
 const addMovieHtml = () => {
   return `<form class="form-inline">
@@ -44,24 +51,53 @@ const addMovieHtml = () => {
     <option value="5">Five</option>
 
   </select>
-  <button type="submit" class="btn btn-primary my-1">ADD</button>
+  <button class="btn addMovieButton my-1">ADD</button>
 </form>`
 };
 
 
 
 //delete movie
+
+const addMovie = () => {
+$('.addMovieButton').click((event) => {
+    event.preventDefault();
+    let newMovieName = $('#inlineFormInputName2').val();
+    let newMovieRating = $('#inlineFormCustomSelectPref').val();
+    console.log(newMovieName);
+    console.log(newMovieRating);
+    // $('#movieList').append(`<li> ${newMovieName} - rating: ${newMovieRating} <button class="deleteMovie"> X</button></li>`);
+    let data = {
+            "title": newMovieName,
+            "rating": newMovieRating,
+            // "id": 1
+        };
+    console.log(data);
+    // we the data
+    const url = 'api/movies';
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    };
+    fetch(url, options)
+        .then(
+            console.log('pass'),     ////update the displayed content here
+            update()
+        );
+});
+};
+
 const deleteMovie = () => {
 
-$('.deleteMovie').click( (event) => {
-    $(event.target).parent().hide();
-})
+    $('.deleteMovie').click( (event) => {
+        $(event.target).parent().hide();
+    })
 
 };
 
-// const addNewMovie = () => {
-//
-// }
 
 
 

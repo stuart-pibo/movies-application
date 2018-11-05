@@ -9,6 +9,21 @@
       "title": "Star Wars: A New Hope",
       "rating": "5",
       "id": 2
+    },
+    {
+      "title": "Pibo's New Hope",
+      "rating": "3",
+      "id": 3
+    },
+    {
+      "title": "The Thing",
+      "rating": "1",
+      "id": 4
+    },
+    {
+      "title": "Pibo's New Hope 2",
+      "rating": "4",
+      "id": 5
     }
   ]
 }
