@@ -21,7 +21,7 @@ getMovies().then((movies) => {
   });
   buildMoviesHTML += `</ul>`;
 
-  $('.moviesList').append(buildMoviesHTML + addMovieHtml() + addRating());
+  $('.moviesList').append(buildMoviesHTML + addMovieHtml());
     deleteMovie()
 }).catch((error) => {
   alert('Oh no! Something went wrong.\nCheck the console for details.');
@@ -59,9 +59,9 @@ $('.deleteMovie').click( (event) => {
 
 };
 
-const addNewMovie = () => {
-
-}
+// const addNewMovie = () => {
+//
+// }
 
 
 
