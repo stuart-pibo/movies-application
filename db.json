@@ -1,24 +1,14 @@
 {
   "movies": [
     {
-      "title": "Casablanca",
-      "rating": "4",
-      "id": 1
-    },
-    {
-      "title": "Star Wars: A New Hope",
+      "title": "Star Wars: Pibo's New Hope",
       "rating": "5",
       "id": 2
     },
     {
-      "title": "jen",
+      "title": "mmmmmmm",
       "rating": "1",
       "id": 3
-    },
-    {
-      "title": "jen",
-      "rating": "1",
-      "id": 4
     }
   ]
 }

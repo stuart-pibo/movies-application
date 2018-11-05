@@ -11,6 +11,7 @@ const $ = require('jquery');
  */
 const {getMovies} = require('./api.js');
 
+
 const update = () => {
     getMovies().then((movies) => {
         console.log('Here are all the movies:');
@@ -18,7 +19,6 @@ const update = () => {
 
         let buildMoviesHTML = `<ul id="movieList">`;
         movies.forEach(({title, rating, id}) => {
-            console.log(`${title} - rating: ${rating}`);
             buildMoviesHTML += `<li class="eachMovie" id="${id}">${title} - rating: ${rating} <button class="deleteMovie"> X</button></li>`;
         });
         buildMoviesHTML += `</ul>`;
@@ -26,7 +26,6 @@ const update = () => {
         $('.moviesList').html(buildMoviesHTML);
 
         deleteMovie();
-        addMovie();
 
     }).catch((error) => {
         alert('Oh no! Something went wrong.\nCheck the console for details.');
@@ -71,7 +70,6 @@ $('.addMovieButton').click((event) => {
     let data = {
             "title": newMovieName,
             "rating": newMovieRating,
-            // "id": 1
         };
     console.log(data);
     // we the data
@@ -91,29 +89,20 @@ $('.addMovieButton').click((event) => {
 });
 };
 
+addMovie();
+
 const deleteMovie = () => {
 
     $('.deleteMovie').click( (event) => {
-       let target = $(event.target).parent().attr('id');
-        console.log(target);
-        const url = 'api/movies';
-        const options = {
+        let clicked = $(event.target).parent();
+        let id = clicked.attr('id');
+        console.log(id);
+        $.ajax(`/api/movies/${id}`, {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify("id", target)
-        };
-        fetch(url, options)
-            .then(
-        console.log('clicked'),     ////update the displayed content here
-                target.delete()
-            );
+            success: function (data) {
+                console.log(data)
+            }
+        });
+        update();
     })
-
 };
-
-
-
-
-
