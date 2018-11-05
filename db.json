@@ -1,14 +1,24 @@
 {
   "movies": [
     {
-      "title": "Star Wars: Pibo's New Hope",
-      "rating": "5",
-      "id": 2
-    },
-    {
       "title": "mmmmmmm",
       "rating": "1",
       "id": 3
+    },
+    {
+      "title": "Pibo Strikes Back",
+      "rating": "1",
+      "id": 4
+    },
+    {
+      "title": "Return of the Pebo",
+      "rating": "1",
+      "id": 5
+    },
+    {
+      "title": "Pibo's new Hope",
+      "rating": "1",
+      "id": 6
     }
   ]
 }

@@ -19,13 +19,15 @@ const update = () => {
 
         let buildMoviesHTML = `<ul id="movieList">`;
         movies.forEach(({title, rating, id}) => {
-            buildMoviesHTML += `<li class="eachMovie" id="${id}">${title} - rating: ${rating} <button class="deleteMovie"> X</button></li>`;
+            buildMoviesHTML += `<li class="eachMovie" id="${id}"><button class="editBtn"><i class="fas fa-edit"></i></button>
+            ${title} - rating: ${rating} <button class="deleteMovie"> X</button></li>`;
         });
         buildMoviesHTML += `</ul>`;
 
         $('.moviesList').html(buildMoviesHTML);
 
         deleteMovie();
+        editMovie()
 
     }).catch((error) => {
         alert('Oh no! Something went wrong.\nCheck the console for details.');
@@ -106,3 +108,37 @@ const deleteMovie = () => {
         update();
     })
 };
+
+
+
+const editMovie = () => {
+    $('.editBtn').click(() => {
+        let clicked = $(event.target).parents('li').text();
+        let nameMovie = clicked.substring(0, clicked.length-15);
+        let  rating = clicked.substring(clicked.length-4 ,clicked.length-2 );
+        console.log(rating);
+        let id = clicked.attr('id');
+        $.ajax(`/api/movies/${id}`, {
+            method: 'GET',
+            success: function (data) {
+                console.log(data)
+            }
+        }).then()
+        ;
+        update();
+
+    })
+}
+//
+// const theTargetMovie =;
+// const url = '/posts';
+// const options = {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(blogPost),
+// };
+// fetch(url, options)
+//     .then(/* post was created successfully */)
+//     .catch(/* handle errors */);
