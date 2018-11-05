@@ -19,11 +19,11 @@ const update = () => {
         let buildMoviesHTML = `<ul id="movieList">`;
         movies.forEach(({title, rating, id}) => {
             console.log(`${title} - rating: ${rating}`);
-            buildMoviesHTML += `<li class="eachMovie">${title} - rating: ${rating} <button class="deleteMovie"> X</button></li>`;
+            buildMoviesHTML += `<li class="eachMovie" id="${id}">${title} - rating: ${rating} <button class="deleteMovie"> X</button></li>`;
         });
         buildMoviesHTML += `</ul>`;
 
-        $('.moviesList').append(buildMoviesHTML + addMovieHtml());
+        $('.moviesList').html(buildMoviesHTML);
 
         deleteMovie();
         addMovie();
@@ -36,7 +36,7 @@ const update = () => {
 update();
 
 const addMovieHtml = () => {
-  return `<form class="form-inline">
+  let form = `<form class="form-inline">
 
   <label class="sr-only" for="inlineFormInputName2">Name</label>
   <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Movie Title">
@@ -53,8 +53,9 @@ const addMovieHtml = () => {
   </select>
   <button class="btn addMovieButton my-1">ADD</button>
 </form>`
+    return $('.addMovie').html(form)
 };
-
+addMovieHtml()
 
 
 //delete movie
@@ -93,7 +94,21 @@ $('.addMovieButton').click((event) => {
 const deleteMovie = () => {
 
     $('.deleteMovie').click( (event) => {
-        $(event.target).parent().hide();
+       let target = $(event.target).parent().attr('id');
+        console.log(target);
+        const url = 'api/movies';
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify("id", target)
+        };
+        fetch(url, options)
+            .then(
+        console.log('clicked'),     ////update the displayed content here
+                target.delete()
+            );
     })
 
 };
