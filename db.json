@@ -1,24 +1,19 @@
 {
   "movies": [
     {
-      "title": "mmmmmmm",
-      "rating": "1",
-      "id": 3
-    },
-    {
       "title": "Pibo Strikes Back",
       "rating": "1",
       "id": 4
     },
     {
       "title": "Return of the Pebo",
-      "rating": "1",
-      "id": 5
+      "rating": "3",
+      "id": 7
     },
     {
       "title": "Pibo's new Hope",
-      "rating": "1",
-      "id": 6
+      "rating": "5",
+      "id": 8
     }
   ]
 }
