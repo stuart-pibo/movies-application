@@ -29,7 +29,10 @@ const update = () => {
         deleteMovie();
         editMovie()
 
-    }).catch((error) => {
+
+
+    })
+        .catch((error) => {
         alert('Oh no! Something went wrong.\nCheck the console for details.');
         console.log(error);
     })
@@ -58,29 +61,7 @@ const addMovieHtml = () => {
 };
 addMovieHtml();
 
-const editMovieHtml = (input) => {
-    console.log(input.title);
-    console.log(input.rating);
-    console.log(input.id);
-    const output = `<form class="form-inline">
 
-        <label class="sr-only" for="inlineFormInputName2">Name</label>
-        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Movie Title" value=${input.title}>
-
-
-        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Movie Rating</label>
-    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-        <option selected value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-        <option value="4">Four</option>
-        <option value="5">Five</option>
-
-        </select>
-        <button class="btn addMovieButton my-1">UPDATE</button>
-        </form>`;
-    return output
-};
 
 
 //delete movie
@@ -133,12 +114,37 @@ const deleteMovie = () => {
 };
 
 
+const editMovieHtml = (data) => {
+    const movieName = data.title;
+    console.log(movieName);
+    console.log(data.rating);
+    console.log(data.id);
+    const output = `<form class="form-inline">
+
+        <label class="sr-only" for="inlineFormUpdateName" id="movieName" > </label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormUpdateName" value=" ${movieName} " >
+
+
+        <label class="my-1 mr-2" for="inlineFormCustomSelectPrefUpdate">Movie Rating</label>
+    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPrefUpdate">
+        <option  value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+        <option value="4">Four</option>
+        <option value="5">Five</option>
+
+        </select>
+        <button id="updateMovieButton" class="btn my-1">UPDATE</button>
+        </form>`;
+    return output
+
+};
 
 const editMovie = () => {
     $('.editBtn').click( (event) => {
         let clicked = $(event.target).parent().parent();
         let id = clicked.attr('id');
-        console.log(id);
+        // console.log(id);
         // let nameMovie = clicked.substring(0, clicked.length-15);
         // let  rating = clicked.substring(clicked.length-4 ,clicked.length-2 );
         // console.log(rating);
@@ -149,6 +155,7 @@ const editMovie = () => {
                 const selector = '#' + data.id;
                 console.log(selector);
                 const newHtml = editMovieHtml(data);
+                console.log(newHtml);
                 $(selector).html(newHtml);
 
 
@@ -168,11 +175,13 @@ const editMovie = () => {
             //     <option value="5">Five</option>
             //
             //   </select>
-            //   <button class="btn updateMovieButton my-1">UPDATE</button>
+            //   <button class="btn  my-1">UPDATE</button>
             // </form>`;
             //     return $('.addMovie').html(form)
             }
-        }).then();
+        }).then( () => {
+            updateMovie()
+        });
 
         // console.log(getTheData);
         update();
@@ -192,3 +201,32 @@ const editMovie = () => {
 // fetch(url, options)
 //     .then(/* post was created successfully */)
 //     .catch(/* handle errors */);
+const updateMovie = () => {
+    $('#updateMovieButton').click((event) => {
+        event.preventDefault();
+        let updatedMovieName = $('#inlineFormUpdateName').val();
+        let updatedMovieRating = $('#inlineFormCustomSelectPrefUpdate').val();
+        let clicked = $(event.target).parent();
+        let id = clicked.attr('id');
+        console.log(updatedMovieName);
+        console.log(updatedMovieRating);
+        // $('#movieList').append(`<li> ${newMovieName} - rating: ${newMovieRating} <button class="deleteMovie"> X</button></li>`);
+        let data = {
+            "title": updatedMovieName,
+            "rating": updatedMovieRating,
+            "id": id
+        };
+        const url = `/api/movies/${id}`;
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        };
+        fetch(url, options)
+            .then(
+                update()
+            );
+    });
+};
