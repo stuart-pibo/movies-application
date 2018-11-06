@@ -116,12 +116,9 @@ const deleteMovie = () => {
 
 const editMovieHtml = (data) => {
     const movieName = data.title;
-    console.log(movieName);
-    console.log(data.rating);
-    console.log(data.id);
     const output = `<form class="form-inline">
 
-        <label class="sr-only" for="inlineFormUpdateName" id="movieName" > </label>
+        <label class="sr-only" for="inlineFormUpdateName" id="movieName ${data.id}" > </label>
         <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormUpdateName" value=" ${movieName} " >
 
 
@@ -153,9 +150,7 @@ const editMovie = () => {
             method: 'GET',
             success: function (data) {
                 const selector = '#' + data.id;
-                console.log(selector);
                 const newHtml = editMovieHtml(data);
-                console.log(newHtml);
                 $(selector).html(newHtml);
 
 
@@ -179,8 +174,8 @@ const editMovie = () => {
             // </form>`;
             //     return $('.addMovie').html(form)
             }
-        }).then( () => {
-            updateMovie()
+        }).then( (data) => {
+            updateMovie(data)
         });
 
         // console.log(getTheData);
@@ -201,15 +196,18 @@ const editMovie = () => {
 // fetch(url, options)
 //     .then(/* post was created successfully */)
 //     .catch(/* handle errors */);
-const updateMovie = () => {
+const updateMovie = (input) => {
     $('#updateMovieButton').click((event) => {
         event.preventDefault();
+        console.log(input.title);
+        console.log(input.rating);
+        console.log(input.id);
         let updatedMovieName = $('#inlineFormUpdateName').val();
         let updatedMovieRating = $('#inlineFormCustomSelectPrefUpdate').val();
-        let clicked = $(event.target).parent();
-        let id = clicked.attr('id');
-        console.log(updatedMovieName);
-        console.log(updatedMovieRating);
+        // let clicked = $(event.target).parent();
+        // console.log(clicked);
+        let id = input.id;
+        // let id = clicked.attr('id');
         // $('#movieList').append(`<li> ${newMovieName} - rating: ${newMovieRating} <button class="deleteMovie"> X</button></li>`);
         let data = {
             "title": updatedMovieName,
