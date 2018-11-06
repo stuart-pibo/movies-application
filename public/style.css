@@ -1,5 +1,6 @@
 html, body {
     height: 100%;
+    font-size: 30px;
 }
 
 .container {
@@ -8,6 +9,31 @@ html, body {
     transform: translateY(-100%);
     text-align: center;
 }
+h1{
+    font-size: 100px;
+    margin-bottom: 30px;
+
+}
 li{
     list-style: none;
+    margin-bottom: 10px;
 }
+ul{
+    width: 50%;
+    float: right;
+    border-left: coral solid 5px;
+}
+button{
+    margin-left: 20px;
+    background-color: coral;
+}
+.deleteMovie{
+    background-color: #F43A3A;
+}
+#inlineFormCustomSelectPrefUpdate , #inlineFormCustomSelectPref {
+    background-color: #FFCCC9;
+    height: 40px;
+    font-size: 14px;
+
+}
+
