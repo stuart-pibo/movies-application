@@ -9,18 +9,23 @@ const $ = require('jquery');
 /**
  * require style imports
  */
+
 const {getMovies} = require('./api.js');
+
+
+$('.addMovie').hide()
 
 
 const update = () => {
     getMovies().then((movies) => {
         console.log('Here are all the movies:');
+        $('.addMovie').show()
 
-
-        let buildMoviesHTML = `<ul id="movieList">`;
+        $('.preloader-wrapper').hide()
+        let buildMoviesHTML = `<div id="formAdd"><ul id="movieList">`;
         movies.forEach(({title, rating, id}) => {
-            buildMoviesHTML += `<li class="eachMovie" id="${id}"><button class="editBtn"><i class="fas fa-edit"></i></button>
-            ${title} - rating: ${rating} <button class="deleteMovie"> X</button></li>`;
+            buildMoviesHTML += `<li class="eachMovie" id="${id}">
+            ${title} - rating: ${rating}<button class="editBtn"><i class="fas fa-edit"></i></button> <button class="deleteMovie"> X</button></li>`;
         });
         buildMoviesHTML += `</ul>`;
 
@@ -40,7 +45,7 @@ const update = () => {
 update();
 
 const addMovieHtml = () => {
-  let form = `<form class="form-inline">
+  let form = `<form class="form-inline" >
 
   <label class="sr-only" for="inlineFormInputName2">Name</label>
   <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Movie Title">
@@ -56,7 +61,7 @@ const addMovieHtml = () => {
 
   </select>
   <button class="btn addMovieButton my-1">ADD</button>
-</form>`;
+</form></div>`;
     return $('.addMovie').html(form)
 };
 addMovieHtml();
